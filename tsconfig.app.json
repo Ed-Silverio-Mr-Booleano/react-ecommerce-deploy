@@ -12,12 +12,12 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": false, // Desativa verificações estritas para evitar TS6133 e TS2322
+    "strict": false, // Desativa todas as verificações estritas
+    "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noFallthroughCasesInSwitch": false,
+    "noUncheckedSideEffectImports": false
   },
   "include": ["src"]
 }

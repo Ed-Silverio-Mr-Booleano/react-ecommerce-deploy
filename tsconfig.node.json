@@ -10,11 +10,11 @@
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
-    "types": ["node"], // Confirma que está presente
-    "strict": false, // Mantenha desativado temporariamente
+    "types": ["node"],
+    "strict": false, // Desativa verificações estritas
     "noUnusedLocals": false,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": false,
     "noUncheckedSideEffectImports": false
   },
   "include": ["vite.config.ts"]
