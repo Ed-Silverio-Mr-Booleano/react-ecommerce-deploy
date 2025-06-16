@@ -5,10 +5,10 @@ export interface IProduct {
   preco: number;
   estoque: number;
   categoria: ICategory;
+  desconto: number;
 }
 
 export interface ICategory {
   id: number;
   categoria: string;
 }
-

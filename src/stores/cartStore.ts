@@ -10,8 +10,10 @@ interface ICartStore {
   products: Map<number, ICart>;
   addProduct(product: IProduct): void;
   totalQuantity: () => number;
+  totalPrice: () => number;
   removeProduct: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
+  clearCart: () => void;
 }
 
 const useCartStore = create<ICartStore>((set, get) => ({
@@ -36,34 +38,42 @@ const useCartStore = create<ICartStore>((set, get) => ({
     set({ products: updatedProducts });
   },
 
-  removeProduct: (productId: number) => {
+  removeProduct: (productId) => {
     const updatedProducts = new Map(get().products);
     updatedProducts.delete(productId);
     set({ products: updatedProducts });
   },
+
+  updateQuantity: (productId, quantity) => {
+    const updatedProducts = new Map(get().products);
+    const existing = updatedProducts.get(productId);
+
+    if (existing && quantity > 0) {
+      updatedProducts.set(productId, { ...existing, quantity });
+    } else {
+      updatedProducts.delete(productId);
+    }
+
+    set({ products: updatedProducts });
+  },
+
   totalQuantity: () => {
+    const products = get().products;
+    return Array.from(products.values()).reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+  },
+
+  totalPrice: () => {
     const products = get().products;
     return Array.from(products.values()).reduce(
       (sum, item) => sum + item.quantity * item.product.preco,
       0
     );
   },
-  updateQuantity: (productId: number, quantity: number) => {
-    const updatedProducts = new Map(get().products);
-    const existingCartItem = updatedProducts.get(productId);
 
-    if (existingCartItem && quantity > 0) {
-      updatedProducts.set(productId, {
-        ...existingCartItem,
-        quantity,
-      });
-      set({ products: updatedProducts });
-    } else if (existingCartItem && quantity <= 0) {
-      // Se a quantidade for 0, remover o item
-      updatedProducts.delete(productId);
-      set({ products: updatedProducts });
-    }
-  },
+  clearCart: () => set({ products: new Map() }),
 }));
 
 export { useCartStore };

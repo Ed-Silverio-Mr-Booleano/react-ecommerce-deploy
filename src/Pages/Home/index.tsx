@@ -25,31 +25,38 @@ const Home = () => {
       : products.filter((p) => p.categoria.id === selectedCategory);
 
   return (
-    <>
-      <div className="flex space-x-6">
-        {/* Filtros */}
-        <div className="w-[300px] min-h-[400px] rounded-md bg-white p-6 shadow">
-          <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-2">
-              Categoria
-            </h3>
-            <select
-              className="w-full border border-gray-300 rounded-xl p-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(Number(e.target.value))}
-            >
-              <option value={0}>Todas</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.categoria}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+    <div className="max-w-screen-xl mx-auto px-4 py-8">
+      {/* Cabeçalho da Página */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-[#591e00] mb-2">Produtos</h2>
+        <p className="text-gray-600">
+          Veja todos os nossos produtos disponíveis!
+        </p>
+      </div>
 
-        {/* Lista de Produtos */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* Filtros + Produtos */}
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Filtro lateral */}
+        <aside className="w-full lg:w-[280px] bg-white shadow rounded-xl p-5">
+          <h3 className="text-sm font-semibold text-gray-700 mb-3">
+            Filtrar por Categoria
+          </h3>
+          <select
+            className="w-full border border-gray-300 rounded-xl p-3 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(Number(e.target.value))}
+          >
+            <option value={0}>Todas as categorias</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.categoria}
+              </option>
+            ))}
+          </select>
+        </aside>
+
+        {/* Lista de produtos */}
+        <section className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -58,9 +65,9 @@ const Home = () => {
               product={product}
             />
           ))}
-        </div>
+        </section>
       </div>
-    </>
+    </div>
   );
 };
 
